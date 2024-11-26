@@ -4,6 +4,11 @@ Upnode Deploy is an open-source Docker Compose and UI tool for deploying an OP S
 
 Unlike Conduit, which is a paid, closed-source RaaS, Upnode Deploy is an open-source public good that helps developers customize and deploy their OP Stack chain.
 
+## Prerequisites
+
+- Docker v20.10+
+- Docker-compose 2.x.x+
+
 ## Getting Started
 
 Clone the repository: https://github.com/upnodedev/opstack-compose
@@ -67,11 +72,88 @@ Once the deployment is complete, your Fraxtal L3 will be accessible at:
 * **RPC:** http://YOURIPADDRESS:8545
 * **WS:** ws://YOURIPADDRESS:8545
 
-To deploy the Blockscout explorer for your Fraxtal L3 chain, navigate to the blockscout folder and run:
+
+## Blockscout Explorer
+
+To deploy the Blockscout explorer for your Fraxtal L3 chain, navigate to the 'blockscout' folder, then set any environment variables you need to change from the defaults. You should consider changing at least the following variables in common-blockscout.env
+
+```
+CHAIN_ID - set to the l2 chain ID
+SUBNETWORK - set to the chain name
+```
+and optionally
+
+```
+LOGO
+FOOTER_LOGO
+```
+and these ones in common-frontend.env
+
+```
+NEXT_PUBLIC_NETWORK_NAME= - the chain name (longer form)
+NEXT_PUBLIC_NETWORK_SHORT_NAME= - the chain name (shorter form)
+NEXT_PUBLIC_NETWORK_ID= - the l2 chain ID
+```
+and if you don't want the defaults (Ether, ETH and 18).
+```
+NEXT_PUBLIC_NETWORK_CURRENCY_NAME= - the currency name
+NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL= - the currency symbol
+NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS= - the currency decimals
+```
+
+The full list of configurable environment variables can be found in the following files.
+
+- common-blockscout.env
+- common-frontend.env
+- common-smart-contract-verifier.env
+- common-stats.env
+- common-visualizer.env
+
+For complete explanations of these settings, pleas refer to the BlockScout documentation at https://docs.blockscout.com/setup/env-variables.
+
+Once the settings have been configured, you are ready to run:
 
 ```
 docker compose -f geth.yml up -d --build
 ```
+
+## Bridge
+
+...
+
+### Indexer
+
+Copy .env.example to .env and modify the environment variables. You will likely want to change moset of the variables to conform to the properties of your chain.
+
+Only one RPC is required for each layer, with the others being backups in case the first one fails.
+
+Launch the indexer with
+
+```
+docker compose -f geth.yml up -d --build
+```
+### UI
+
+...
+
+## Faucet
+
+To run a faucet, navigate to the 'faucet' folder and create a '.env' file with the following variables
+```
+export FAUCET_NAME= - usually set to the chain name
+export FAUCET_AMOUNT= - the amount to be delivered by the faucet (in the principal denomination - eg ETH)
+export FAUCET_INTERVAL= - the cooldown time in minutes between uses of the faucet by a given account
+
+export WEB3_PROVIDER= - the URL of an l2 RPC
+export PRIVATE_KEY= - the private key of an account holding the faucet funds
+```
+...
+Then start the faucet with
+```
+docker compose up -d
+```
+
+## Further Actions
 
 If you want to point a domain name to these endpoints or introduce a rate limit, you can use a reverse proxy such as Nginx or Traefik to handle this job.
 
