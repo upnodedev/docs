@@ -4,7 +4,6 @@ layout: home
 
 hero:
   name: "Upnode Documents"
-  text: ""
   tagline: 
   #actions:
   #  - theme: brand

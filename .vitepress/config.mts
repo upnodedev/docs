@@ -10,6 +10,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Introduction', link: '/introduction' },
       { text: 'Upnode Deploy', link: '/opstack-compose' },
+      { text: 'Upnode Opstack CLI tool ', link: '/opstack-cli' },
       { text: 'Signer Proxy', link: '/signer-proxy' },
       { text: 'Optimism Alt-DA', link: '/op-alt-da' },
     ],
@@ -20,6 +21,7 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/introduction' },
           { text: 'Upnode Deploy', link: '/opstack-compose' },
+          { text: 'Upnode Opstack CLI tool ', link: '/opstack-cli' },
           { text: 'Signer Proxy', link: '/signer-proxy' },
           { text: 'Optimism Alt-DA', link: '/op-alt-da' },
           //{ text: 'Markdown Examples', link: '/markdown-examples' },
@@ -29,7 +31,9 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+      { icon: 'github', link: 'https://github.com/upnodedev' }
+    ],
+
+    logo: 'https://upnode.org/static/746efe80b6fc0c3e8fe0326ce303ccfd/416c3/upnode.webp',
   }
 })
